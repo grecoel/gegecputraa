@@ -1,9 +1,50 @@
 @import "tailwindcss";
 @import "./fonts.css";
 
+/* Tailwind v4: enable class-based dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Smooth scroll */
 html {
   scroll-behavior: smooth;
+}
+
+/* Dark Mode Theme Overrides */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #0f0f10;
+  color: #e8eaed;
+}
+
+html.dark .glass-card {
+  background: rgba(30, 30, 34, 0.75);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .google-glow {
+  background:
+    radial-gradient(circle at 15% 50%, rgba(66, 133, 244, 0.12), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(234, 67, 53, 0.08), transparent 25%),
+    radial-gradient(circle at 50% 80%, rgba(52, 168, 83, 0.08), transparent 40%);
+}
+
+html.dark .card-shine::after {
+  background: linear-gradient(105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.04) 50%,
+      transparent 60%);
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* Google Symbols */
@@ -81,9 +122,9 @@ html {
   --nav-height: 52px;
 
   /* Typography Sizes (Defaults) */
-  --landing-main-text-size: 107px;
-  --landing-main-text-line-height: 107px;
-  --landing-main-text-letter-spacing: -2.14px;
+  --landing-main-text-size: clamp(40px, 5vw, 96px);
+  --landing-main-text-line-height: 1.05;
+  --landing-main-text-letter-spacing: -2px;
 
   --9xl-size: 148px;
   --9xl-line-height: 145.04px;
@@ -142,18 +183,18 @@ html {
 
 @media (max-width: 1600px) {
   :root {
-    --landing-main-text-size: 72px;
-    --landing-main-text-line-height: 72.04px;
-    --landing-main-text-letter-spacing: -1.44px;
+    --landing-main-text-size: clamp(36px, 4.5vw, 80px);
+    --landing-main-text-line-height: 1.05;
+    --landing-main-text-letter-spacing: -1.5px;
     --grid-gutter: 48px;
   }
 }
 
 @media (max-width: 1024px) {
   :root {
-    --landing-main-text-size: 56px;
-    --landing-main-text-line-height: 56.04px;
-    --landing-main-text-letter-spacing: -1.12px;
+    --landing-main-text-size: clamp(28px, 4vw, 60px);
+    --landing-main-text-line-height: 1.05;
+    --landing-main-text-letter-spacing: -1px;
     --grid-gutter: 28px;
     --page-margin: 40px;
   }
@@ -161,9 +202,9 @@ html {
 
 @media (max-width: 767px) {
   :root {
-    --landing-main-text-size: 38px;
-    --landing-main-text-line-height: 42px;
-    --landing-main-text-letter-spacing: -.76px;
+    --landing-main-text-size: clamp(28px, 8vw, 50px);
+    --landing-main-text-line-height: 1.1;
+    --landing-main-text-letter-spacing: -1px;
     --grid-gutter: 12px;
     --page-margin: 16px;
     --space-7xl: 64px;

@@ -13,10 +13,10 @@ var e = Object.defineProperty
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.02] select-none flex items-center justify-center">
-      <pre className="text-xs md:text-sm font-mono leading-relaxed text-black text-left whitespace-pre-wrap max-w-6xl w-full p-8 grayscale">
+      <pre className="text-xs md:text-sm font-mono leading-relaxed text-black dark:text-white text-left whitespace-pre-wrap max-w-6xl w-full p-8 grayscale">
         {codeString}
       </pre>
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white dark:from-[#0f0f10] via-transparent to-white dark:to-[#0f0f10]" />
     </div>
   );
 };
@@ -389,7 +389,7 @@ const WIPButton = ({ color, lang }) => {
                    bg-white active:scale-95"
         style={{ color, borderColor: color }}
         onMouseEnter={e => e.currentTarget.style.backgroundColor = `${color}12`}
-        onMouseLeave={e => e.currentTarget.style.backgroundColor = '#ffffff'}
+        onMouseLeave={e => e.currentTarget.style.backgroundColor = ''}
       >
         <span className="symbol text-base leading-none" style={{ color }}>open_in_new</span>
         {t.btn}
@@ -418,7 +418,7 @@ const WIPButton = ({ color, lang }) => {
   );
 };
 
-const StickyScrollSection = ({ lang }) => {
+const StickyScrollSection = ({ lang, isDark }) => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -438,7 +438,7 @@ const StickyScrollSection = ({ lang }) => {
   }, [scrollYProgress]);
 
   return (
-    <div ref={containerRef} className="relative hidden md:block h-[300vh] bg-[#F8F9FA]">
+    <div ref={containerRef} className={`relative hidden md:block h-[300vh] ${isDark ? 'bg-[#141416]' : 'bg-[#F8F9FA]'}`}>
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <div className="container mx-auto px-[var(--page-margin)] grid grid-cols-1 md:grid-cols-2 gap-16 items-center h-full max-h-[800px]">
 
@@ -448,7 +448,7 @@ const StickyScrollSection = ({ lang }) => {
               <span className="w-2 h-2 rounded-full bg-[#EA4335]" />
               <span className="w-2 h-2 rounded-full bg-[#FBBC04]" />
             </div>
-            <h2 className="heading-2 mb-12 text-[#202124]">{text.title}</h2>
+            <h2 className={`heading-2 mb-12 ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'}`}>{text.title}</h2>
 
             <div className="relative min-h-[350px]">
               {projects.map((project, index) => (
@@ -466,13 +466,13 @@ const StickyScrollSection = ({ lang }) => {
                   <p className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: project.color }}>
                     {project.category}
                   </p>
-                  <h3 className="heading-3 mb-6 text-[#202124]">{project.title}</h3>
-                  <p className="body text-[#5F6368] mb-8 text-lg leading-relaxed max-w-lg">
+                  <h3 className={`heading-3 mb-6 ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'}`}>{project.title}</h3>
+                  <p className={`body ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} mb-8 text-lg leading-relaxed max-w-lg`}>
                     {project.desc}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-8">
                     {project.tech.map((t, i) => (
-                      <span key={i} className="px-3 py-1 bg-white border border-gray-200 rounded-full text-sm text-[#5F6368]">
+                      <span key={i} className={`px-3 py-1 ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-gray-200'} border rounded-full text-sm ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'}`}>
                         {t}
                       </span>
                     ))}
@@ -484,7 +484,7 @@ const StickyScrollSection = ({ lang }) => {
           </div>
 
           {/* RIGHT: Visuals */}
-          <div className="relative h-[400px] w-full bg-white rounded-[32px] shadow-2xl border border-gray-100 overflow-hidden flex items-center justify-center">
+          <div className={`relative h-[400px] w-full ${isDark ? 'bg-[#1e1e22] border-white/10' : 'bg-white border-gray-100'} rounded-[32px] shadow-2xl border overflow-hidden flex items-center justify-center`}>
             {projects.map((project, index) => (
               <motion.div
                 key={index}
@@ -522,7 +522,7 @@ const StickyScrollSection = ({ lang }) => {
             ))}
 
             <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center">
-              <div className="h-1.5 w-28 bg-gray-100 rounded-full overflow-hidden">
+              <div className={`h-1.5 w-28 ${isDark ? 'bg-white/10' : 'bg-gray-100'} rounded-full overflow-hidden`}>
                 <motion.div
                   className="h-full rounded-full"
                   style={{ background: 'linear-gradient(90deg, #4285F4, #EA4335, #FBBC04, #34A853)' }}
@@ -540,15 +540,15 @@ const StickyScrollSection = ({ lang }) => {
   );
 };
 
-const MobileProjectList = ({ lang }) => {
+const MobileProjectList = ({ lang, isDark }) => {
   const text = TRANSLATIONS[lang].work;
   return (
-    <div className="md:hidden py-[var(--space-2xl)] bg-[#F8F9FA]">
+    <div className={`md:hidden py-[var(--space-2xl)] ${isDark ? 'bg-[#141416]' : 'bg-[#F8F9FA]'}`}>
       <div className="grid-container">
-        <h2 className="heading-2 mb-8 text-[#202124]">{text.mobileTitle}</h2>
+        <h2 className={`heading-2 mb-8 ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'}`}>{text.mobileTitle}</h2>
         <div className="space-y-8">
           {projects.map((project, i) => (
-            <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
+            <div key={i} className={`${isDark ? 'bg-[#1e1e22] border-white/10' : 'bg-white border-gray-100'} rounded-2xl p-6 border shadow-sm relative overflow-hidden`}>
               <div className="absolute top-0 right-0 p-4 opacity-10">
                 <span className={`symbol text-[80px]`} style={{ color: project.color }}>{project.icon}</span>
               </div>
@@ -556,13 +556,13 @@ const MobileProjectList = ({ lang }) => {
                 <span className="text-xs font-bold uppercase tracking-widest mb-2 block" style={{ color: project.color }}>
                   {project.category}
                 </span>
-                <h3 className="heading-4 mb-2 text-[#202124]">{project.title}</h3>
-                <p className="body text-[#5F6368] mb-4 text-sm leading-relaxed">
+                <h3 className={`heading-4 mb-2 ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'}`}>{project.title}</h3>
+                <p className={`body ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} mb-4 text-sm leading-relaxed`}>
                   {project.desc}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-5">
                   {project.tech.map((t, k) => (
-                    <span key={k} className="px-2 py-1 bg-gray-50 border border-gray-100 rounded text-xs text-[#5F6368]">
+                    <span key={k} className={`px-2 py-1 ${isDark ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-100'} border rounded text-xs ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'}`}>
                       {t}
                     </span>
                   ))}
@@ -578,7 +578,7 @@ const MobileProjectList = ({ lang }) => {
 }
 
 
-const ParallaxHero = ({ lang }) => {
+const ParallaxHero = ({ lang, isDark }) => {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 600], [0, 250]);
   const y2 = useTransform(scrollY, [0, 600], [0, -180]);
@@ -622,7 +622,7 @@ const ParallaxHero = ({ lang }) => {
       {floatingBadges.map((badge, i) => (
         <motion.div
           key={i}
-          className="absolute hidden lg:flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-gray-100 shadow-sm text-xs font-bold tracking-wide pointer-events-none select-none z-10"
+          className={`absolute hidden lg:flex items-center gap-2 px-4 py-2 ${isDark ? 'bg-[#1e1e22]/80 border-white/10' : 'bg-white/80 border-gray-100'} backdrop-blur-sm rounded-full border shadow-sm text-xs font-bold tracking-wide pointer-events-none select-none z-10`}
           style={{
             left: badge.x,
             top: badge.y,
@@ -642,10 +642,10 @@ const ParallaxHero = ({ lang }) => {
       {/* Main title — staggered character entrance */}
       <motion.div
         style={{ y: y1, opacity, scale }}
-        className="relative z-10 max-w-5xl"
+        className="relative z-10 w-full max-w-7xl"
       >
         <motion.h1
-          className="landing-main mb-4 tracking-tighter overflow-visible"
+          className="landing-main mb-1 tracking-tighter overflow-visible"
           variants={{
             hidden: {},
             visible: { transition: { staggerChildren: 0.028, delayChildren: 0.15 } }
@@ -657,7 +657,7 @@ const ParallaxHero = ({ lang }) => {
             transition: 'transform 0.9s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
-          <span className="flex flex-wrap justify-center">
+          <span className="flex flex-nowrap justify-center whitespace-nowrap">
             {nameChars.map((char, i) => (
               <motion.span
                 key={i}
@@ -670,7 +670,7 @@ const ParallaxHero = ({ lang }) => {
                     transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] }
                   }
                 }}
-                className={`inline-block text-transparent bg-clip-text bg-gradient-to-br from-[#0F0F11] via-[#202124] to-[#404040] drop-shadow-[0_2px_12px_rgba(0,0,0,0.08)] ${char === ' ' ? 'w-[0.3em]' : ''}`}
+                className={`inline-block pb-3 text-transparent bg-clip-text ${isDark ? 'bg-gradient-to-br from-[#ffffff] via-[#e8eaed] to-[#bdc1c6]' : 'bg-gradient-to-br from-[#0F0F11] via-[#202124] to-[#404040]'} drop-shadow-[0_2px_12px_rgba(0,0,0,0.08)] ${char === ' ' ? 'w-[0.3em]' : ''}`}
               >
                 {char === ' ' ? '\u00A0' : char}
               </motion.span>
@@ -727,7 +727,7 @@ const ParallaxHero = ({ lang }) => {
                 );
               })}
             </div>
-            <p className="heading-4 text-[#202124] font-semibold leading-snug max-w-xl text-center">
+            <p className={`heading-4 ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'} font-semibold leading-snug max-w-xl text-center`}>
               {text.subtitle2}
             </p>
           </div>
@@ -746,7 +746,7 @@ const ParallaxHero = ({ lang }) => {
           if (el) el.scrollIntoView({ behavior: 'smooth' });
         }}
       >
-        <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#5F6368] opacity-50 group-hover:opacity-100 transition-opacity">
+        <span className={`text-[10px] font-bold tracking-[0.3em] uppercase ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} opacity-50 group-hover:opacity-100 transition-opacity`}>
           Scroll
         </span>
         <motion.div className="w-5 h-9 rounded-full border-2 border-[#5F6368]/20 flex justify-center pt-2 group-hover:border-[#4285F4]/50 transition-colors">
@@ -764,33 +764,33 @@ const ParallaxHero = ({ lang }) => {
 // --- LEADERSHIP SECTION COMPONENT ---
 const ORG_COLORS = ['#4285F4', '#EA4335', '#FBBC04', '#34A853', '#4285F4', '#EA4335', '#FBBC04', '#34A853'];
 
-const LeadershipSection = ({ lang }) => {
+const LeadershipSection = ({ lang, isDark }) => {
   const t = TRANSLATIONS[lang];
 
   return (
-    <section className="py-[var(--space-7xl)] bg-[#F8F9FA]">
+    <section className={`py-[var(--space-7xl)] ${isDark ? 'bg-[#141416]' : 'bg-[#F8F9FA]'}`}>
       <div className="container mx-auto px-[var(--page-margin)] max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
 
           {/* EDUCATION */}
           <div className="lg:col-span-4 transition-all duration-700">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-[#5F6368] mb-8">{t.edu.title}</h3>
-            <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300">
+            <h3 className={`text-xs font-bold uppercase tracking-widest ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} mb-8`}>{t.edu.title}</h3>
+            <div className={`${isDark ? 'bg-[#1e1e22] border-white/10' : 'bg-white border-gray-100'} p-8 rounded-3xl border shadow-sm hover:shadow-lg transition-all duration-300`}>
               <div className="flex items-center gap-4 mb-8">
                 <span className="symbol text-5xl text-[#4285F4]">school</span>
                 <div>
-                  <h4 className="heading-4 text-[#202124]">Undip</h4>
+                  <h4 className={`heading-4 ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'}`}>Undip</h4>
                   <p className="text-sm text-gray-500 font-medium">Semarang, Indonesia</p>
                 </div>
               </div>
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-lg font-bold text-[#202124] mb-1">Bachelor of Informatics</h4>
-                  <p className="text-sm font-mono text-[#5F6368] bg-gray-50 inline-block px-2 py-1 rounded">2023 – Present</p>
+                  <h4 className={`text-lg font-bold ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'} mb-1`}>Bachelor of Informatics</h4>
+                  <p className={`text-sm font-mono ${isDark ? 'text-[#9aa0a6] bg-white/5' : 'text-[#5F6368] bg-gray-50'} inline-block px-2 py-1 rounded`}>2023 – Present</p>
                   <p className="text-sm text-gray-500 mt-2">Specializing in Artificial Intelligence and Deep Learning systems.</p>
                 </div>
-                <div className="border-t border-gray-100 pt-6">
-                  <h4 className="text-base font-bold text-[#202124] mb-1">SMA Negeri 1 Bandar</h4>
+                <div className={`border-t ${isDark ? 'border-white/10' : 'border-gray-100'} pt-6`}>
+                  <h4 className={`text-base font-bold ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'} mb-1`}>SMA Negeri 1 Bandar</h4>
                   <p className="text-sm text-[#34A853] font-medium">Natural Sciences (94.6/100)</p>
                 </div>
               </div>
@@ -799,16 +799,16 @@ const LeadershipSection = ({ lang }) => {
 
           {/* LEADERSHIP — stable list */}
           <div className="lg:col-span-8">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-[#5F6368] mb-8 transition-all duration-700">
+            <h3 className={`text-xs font-bold uppercase tracking-widest ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} mb-8 transition-all duration-700`}>
               {t.exp.leadership}
             </h3>
 
-            <div className="divide-y divide-gray-200">
+            <div className={`divide-y ${isDark ? 'divide-white/10' : 'divide-gray-200'}`}>
               {leadership.map((item, i) => (
                 <div
                   key={i}
-                  className="py-5 flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-6 group cursor-default
-                             transition-all duration-700 hover:bg-white hover:px-4 hover:rounded-2xl hover:-mx-4"
+                  className={`py-5 flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-6 group cursor-default
+                             transition-all duration-700 ${isDark ? 'hover:bg-white/5' : 'hover:bg-white'} hover:px-4 hover:rounded-2xl hover:-mx-4`}
                 >
                   {/* Colored dot + time */}
                   <div className="flex items-center gap-2 sm:w-40 shrink-0 pt-0.5">
@@ -821,11 +821,11 @@ const LeadershipSection = ({ lang }) => {
 
                   {/* Content */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-[#202124] leading-snug mb-0.5
-                                  group-hover:text-[#4285F4] transition-colors duration-200">
+                    <p className={`text-sm font-semibold ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'} leading-snug mb-0.5
+                                  group-hover:text-[#4285F4] transition-colors duration-200`}>
                       {item.role}
                     </p>
-                    <p className="text-xs font-bold text-[#5F6368] mb-1">{item.org}</p>
+                    <p className={`text-xs font-bold ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} mb-1`}>{item.org}</p>
                     {item.desc && (
                       <p className="text-xs text-gray-400 leading-relaxed mt-1">{item.desc}</p>
                     )}
@@ -844,12 +844,12 @@ const LeadershipSection = ({ lang }) => {
 // --- SKILLS SECTION COMPONENT ---
 const SKILL_COLORS = ['#4285F4', '#EA4335', '#FBBC04', '#34A853', '#4285F4', '#EA4335', '#34A853'];
 
-const SkillsSection = ({ lang }) => {
+const SkillsSection = ({ lang, isDark }) => {
   const t = TRANSLATIONS[lang];
   const entries = Object.entries(skills);
 
   return (
-    <section id="skills" className="py-[var(--space-7xl)] bg-white">
+    <section id="skills" className={`py-[var(--space-7xl)] ${isDark ? 'bg-[#0f0f10]' : 'bg-white'}`}>
       <div className="container mx-auto px-[var(--page-margin)] max-w-6xl">
 
         {/* Heading */}
@@ -858,11 +858,11 @@ const SkillsSection = ({ lang }) => {
             <span className="w-2 h-2 rounded-full bg-[#34A853]" />
             <span className="w-2 h-2 rounded-full bg-[#4285F4]" />
           </div>
-          <h2 className="heading-2 text-[#202124]">{t.skills.title}</h2>
+          <h2 className={`heading-2 ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'}`}>{t.skills.title}</h2>
         </div>
 
         {/* Row-based layout — one category per row */}
-        <div className="divide-y divide-gray-100">
+        <div className={`divide-y ${isDark ? 'divide-white/5' : 'divide-gray-100'}`}>
           {entries.map(([category, items], i) => (
             <div
               key={category}
@@ -874,10 +874,10 @@ const SkillsSection = ({ lang }) => {
                   className="w-2 h-2 rounded-full shrink-0"
                   style={{ backgroundColor: SKILL_COLORS[i] }}
                 />
-                <span className="text-xs font-bold uppercase tracking-widest text-[#5F6368]">
+                <span className={`text-xs font-bold uppercase tracking-widest ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'}`}>
                   {category}
                 </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-400">{items.length}</span>
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isDark ? 'bg-white/10 text-gray-500' : 'bg-gray-100 text-gray-400'}`}>{items.length}</span>
               </div>
 
               {/* Skill pills */}
@@ -885,9 +885,8 @@ const SkillsSection = ({ lang }) => {
                 {items.map(skill => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 text-sm rounded-lg border border-gray-200 text-[#5F6368] bg-white
-                               hover:border-[#4285F4] hover:text-[#4285F4] hover:bg-[#EBF3FE] hover:shadow-sm
-                               hover:scale-105 active:scale-95 transition-all duration-200 cursor-default select-none"
+                    className={`px-3 py-1.5 text-sm rounded-lg border ${isDark ? 'border-white/10 text-[#9aa0a6] bg-transparent hover:border-[#8AB4F8] hover:text-[#8AB4F8] hover:bg-[#8AB4F8]/10' : 'border-gray-200 text-[#5F6368] bg-white hover:border-[#4285F4] hover:text-[#4285F4] hover:bg-[#EBF3FE]'}
+                               hover:shadow-sm hover:scale-105 active:scale-95 transition-all duration-200 cursor-default select-none`}
                   >
                     {skill}
                   </span>
@@ -935,7 +934,7 @@ const useAnimatedCounter = (target, duration = 1500) => {
 };
 
 // --- STATS COUNTER BAR ---
-const StatsCounterBar = ({ lang }) => {
+const StatsCounterBar = ({ lang, isDark }) => {
   const t = TRANSLATIONS[lang];
   const stats = [
     { value: 5, suffix: '+', label: t.stats.internships, color: '#4285F4' },
@@ -944,17 +943,17 @@ const StatsCounterBar = ({ lang }) => {
     { value: Object.keys(skills).length, suffix: '+', label: t.stats.skillAreas, color: '#34A853' },
   ];
   return (
-    <div className="py-12 md:py-16 bg-white border-y border-gray-100">
+    <div className={`py-12 md:py-16 ${isDark ? 'bg-[#0f0f10] border-white/5' : 'bg-white border-gray-100'} border-y`}>
       <div className="container mx-auto px-[var(--page-margin)] max-w-6xl">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, i) => {
             const { count, ref } = useAnimatedCounter(stat.value);
             return (
               <div key={i} ref={ref} className="text-center group">
-                <div className="counter-number text-4xl md:text-5xl font-bold text-[#202124] mb-2 transition-colors group-hover:text-[var(--hover-color)]" style={{ '--hover-color': stat.color }}>
+                <div className={`counter-number text-4xl md:text-5xl font-bold ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'} mb-2 transition-colors group-hover:text-[var(--hover-color)]`} style={{ '--hover-color': stat.color }}>
                   {count}{stat.suffix}
                 </div>
-                <div className="text-xs md:text-sm font-semibold uppercase tracking-widest text-[#5F6368]">{stat.label}</div>
+                <div className={`text-xs md:text-sm font-semibold uppercase tracking-widest ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'}`}>{stat.label}</div>
                 <div className="mx-auto mt-3 w-8 h-1 rounded-full transition-all duration-300 group-hover:w-12" style={{ backgroundColor: stat.color, opacity: 0.6 }} />
               </div>
             );
@@ -973,7 +972,7 @@ const SECTIONS = [
   { id: 'skills', color: '#34A853' },
 ];
 
-const SectionProgressDots = ({ activeSection }) => (
+const SectionProgressDots = ({ activeSection, isDark }) => (
   <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-3">
     {SECTIONS.map(s => (
       <button
@@ -981,7 +980,7 @@ const SectionProgressDots = ({ activeSection }) => (
         onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth' })}
         className={`progress-dot w-2.5 h-2.5 rounded-full border-2 transition-all duration-300 ${activeSection === s.id
           ? 'scale-150 border-transparent'
-          : 'border-gray-300 bg-transparent hover:border-gray-500'
+          : `${isDark ? 'border-white/20 hover:border-white/40' : 'border-gray-300 hover:border-gray-500'} bg-transparent`
           }`}
         style={activeSection === s.id ? { backgroundColor: s.color, boxShadow: `0 0 0 3px ${s.color}33` } : {}}
         aria-label={`Go to ${s.id}`}
@@ -998,7 +997,29 @@ const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark';
+    }
+    return false;
+  });
   const t = TRANSLATIONS[lang];
+
+  // Dark Mode Toggle
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.add('dark');
+      root.classList.remove('light');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDark]);
+
+  const toggleDark = () => setIsDark(prev => !prev);
 
   // Scroll progress
   const { scrollYProgress } = useScroll();
@@ -1042,13 +1063,13 @@ const App = () => {
   };
 
   return (
-    <div className="bg-white text-[#202124] min-h-screen relative selection:bg-[#4285F4] selection:text-white">
+    <div className={`${isDark ? 'bg-[#0f0f10] text-[#e8eaed]' : 'bg-white text-[#202124]'} min-h-screen relative selection:bg-[#4285F4] selection:text-white transition-colors duration-500`}>
 
       {/* Entrance loader */}
       <AnimatePresence>
         {!isLoaded && (
           <motion.div
-            className="fixed inset-0 z-[200] bg-white flex items-center justify-center"
+            className={`fixed inset-0 z-[200] ${isDark ? 'bg-[#0f0f10]' : 'bg-white'} flex items-center justify-center`}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
@@ -1095,10 +1116,10 @@ const App = () => {
           paddingRight: 28,
           height: 52,
           borderRadius: 999,
-          backgroundColor: 'rgba(255,255,255,0.78)',
-          boxShadow: '0 4px 28px rgba(0,0,0,0.07), 0 1px 6px rgba(0,0,0,0.04)',
+          backgroundColor: isDark ? 'rgba(30,30,34,0.85)' : 'rgba(255,255,255,0.78)',
+          boxShadow: isDark ? '0 4px 28px rgba(0,0,0,0.3), 0 1px 6px rgba(0,0,0,0.2)' : '0 4px 28px rgba(0,0,0,0.07), 0 1px 6px rgba(0,0,0,0.04)',
           borderWidth: 1,
-          borderColor: 'rgba(0,0,0,0.07)',
+          borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)',
         } : {
           y: 0,
           opacity: 1,
@@ -1111,8 +1132,8 @@ const App = () => {
           paddingRight: 40,
           height: 64,
           borderRadius: 0,
-          backgroundColor: 'rgba(255,255,255,0.82)',
-          boxShadow: '0 1px 0 rgba(0,0,0,0.06)',
+          backgroundColor: isDark ? 'rgba(15,15,16,0.90)' : 'rgba(255,255,255,0.82)',
+          boxShadow: isDark ? '0 1px 0 rgba(255,255,255,0.05)' : '0 1px 0 rgba(0,0,0,0.06)',
           borderWidth: 0,
           borderColor: 'transparent',
         }}
@@ -1127,18 +1148,17 @@ const App = () => {
           className="font-bold tracking-tight text-lg flex items-center gap-2.5 hover:opacity-70 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#4285F4] rounded-lg p-1 group shrink-0"
           aria-label="Back to top"
         >
-          <div className="flex gap-1 group-hover:gap-1.5 transition-all duration-300">
-            <span className="w-2 h-2 rounded-full bg-[#4285F4] group-hover:scale-110 transition-transform"></span>
-            <span className="w-2 h-2 rounded-full bg-[#EA4335] group-hover:scale-110 transition-transform" style={{ transitionDelay: '50ms' }}></span>
-            <span className="w-2 h-2 rounded-full bg-[#FBBC04] group-hover:scale-110 transition-transform" style={{ transitionDelay: '100ms' }}></span>
-            <span className="w-2 h-2 rounded-full bg-[#34A853] group-hover:scale-110 transition-transform" style={{ transitionDelay: '150ms' }}></span>
+          <div className="flex gap-1.5 group-hover:gap-2 transition-all duration-300">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#4285F4] group-hover:scale-110 transition-transform"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#EA4335] group-hover:scale-110 transition-transform" style={{ transitionDelay: '50ms' }}></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#FBBC04] group-hover:scale-110 transition-transform" style={{ transitionDelay: '100ms' }}></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#34A853] group-hover:scale-110 transition-transform" style={{ transitionDelay: '150ms' }}></span>
           </div>
-          <span className="ml-1 text-[#5F6368] group-hover:text-[#202124] transition-colors font-semibold">GEGE.DEV</span>
         </button>
 
         <div className="flex items-center gap-6 ml-10">
           {/* Desktop Nav */}
-          <div className="hidden md:flex gap-7 text-sm font-medium tracking-wide text-[#5F6368]">
+          <div className={`hidden md:flex gap-7 text-sm font-medium tracking-wide ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'}`}>
             <a href="#work" className="relative hover:text-[#202124] transition-colors focus:outline-none rounded px-1 py-1 group whitespace-nowrap">{t.nav.work}<span className="absolute bottom-0 left-1 right-1 h-0.5 bg-[#4285F4] scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" /></a>
             <a href="#about" className="relative hover:text-[#202124] transition-colors focus:outline-none rounded px-1 py-1 group whitespace-nowrap">{t.nav.exp}<span className="absolute bottom-0 left-1 right-1 h-0.5 bg-[#EA4335] scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" /></a>
             <a href="#certs" className="relative hover:text-[#202124] transition-colors focus:outline-none rounded px-1 py-1 group whitespace-nowrap">{t.nav.certs}<span className="absolute bottom-0 left-1 right-1 h-0.5 bg-[#FBBC04] scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" /></a>
@@ -1149,26 +1169,35 @@ const App = () => {
           {/* Download CV */}
           <a
             href="mailto:gegecentianaputra@students.undip.ac.id?subject=Request%20CV"
-            className="hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#202124] text-white text-xs font-bold rounded-full hover:bg-[#4285F4] transition-all duration-300 hover:shadow-lg hover:shadow-[#4285F4]/20 active:scale-95 shrink-0 whitespace-nowrap"
+            className={`hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 ${isDark ? 'bg-white text-[#202124] hover:bg-[#8AB4F8]' : 'bg-[#202124] text-white hover:bg-[#4285F4]'} text-xs font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-[#4285F4]/20 active:scale-95 shrink-0 whitespace-nowrap`}
           >
             <span className="symbol text-sm">download</span>
             {t.cv}
           </a>
 
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={toggleDark}
+            className={`p-2 rounded-full ${isDark ? 'bg-white/10 hover:bg-white/15 text-yellow-300' : 'bg-gray-100 hover:bg-gray-200 text-[#5F6368]'} transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#4285F4] shrink-0`}
+            aria-label="Toggle Dark Mode"
+          >
+            <span className="symbol text-lg">{isDark ? 'light_mode' : 'dark_mode'}</span>
+          </button>
+
           {/* Language Toggle */}
           <button
             onClick={toggleLang}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-full text-xs font-bold text-[#5F6368] transition-colors focus:outline-none focus:ring-2 focus:ring-[#4285F4] shrink-0"
+            className={`flex items-center gap-1.5 px-3 py-1.5 ${isDark ? 'bg-white/10 hover:bg-white/15 text-[#9aa0a6]' : 'bg-gray-100 hover:bg-gray-200 text-[#5F6368]'} rounded-full text-xs font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-[#4285F4] shrink-0`}
             aria-label="Toggle Language"
           >
-            <span className={lang === 'en' ? "text-[#202124]" : "opacity-40"}>EN</span>
+            <span className={lang === 'en' ? (isDark ? 'text-white' : 'text-[#202124]') : 'opacity-40'}>EN</span>
             <span className="opacity-20">/</span>
-            <span className={lang === 'id' ? "text-[#202124]" : "opacity-40"}>ID</span>
+            <span className={lang === 'id' ? (isDark ? 'text-white' : 'text-[#202124]') : 'opacity-40'}>ID</span>
           </button>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-[#5F6368] hover:text-[#202124] focus:outline-none focus:ring-2 focus:ring-[#4285F4] rounded-lg"
+            className={`md:hidden p-2 ${isDark ? 'text-[#9aa0a6] hover:text-white' : 'text-[#5F6368] hover:text-[#202124]'} focus:outline-none focus:ring-2 focus:ring-[#4285F4] rounded-lg`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle Menu"
           >
@@ -1186,7 +1215,7 @@ const App = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 md:hidden flex flex-col justify-between pt-16"
-            style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}
+            style={{ background: isDark ? 'rgba(15,15,16,0.95)' : 'rgba(255,255,255,0.92)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}
           >
             <div className="flex flex-col px-8 pt-8 gap-2">
               {[
@@ -1198,7 +1227,7 @@ const App = () => {
                 <button
                   key={link.id}
                   onClick={() => navigateTo(link.id)}
-                  className="menu-item-enter flex items-center gap-4 text-3xl font-bold text-[#202124] text-left py-4 border-b border-gray-100 hover:pl-2 transition-all duration-300"
+                  className={`menu-item-enter flex items-center gap-4 text-3xl font-bold ${isDark ? 'text-[#e8eaed] border-white/10' : 'text-[#202124] border-gray-100'} text-left py-4 border-b hover:pl-2 transition-all duration-300`}
                   style={{ animationDelay: `${i * 80}ms` }}
                 >
                   <span className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: link.color }} />
@@ -1219,7 +1248,7 @@ const App = () => {
             <div className="px-8 pb-8">
               <a
                 href="mailto:gegecentianaputra@students.undip.ac.id?subject=Request%20CV"
-                className="menu-item-enter flex items-center justify-center gap-2 w-full py-4 bg-[#202124] text-white font-bold rounded-2xl hover:bg-[#4285F4] transition-all duration-300 mb-6"
+                className={`menu-item-enter flex items-center justify-center gap-2 w-full py-4 ${isDark ? 'bg-white text-[#202124] hover:bg-[#8AB4F8]' : 'bg-[#202124] text-white hover:bg-[#4285F4]'} font-bold rounded-2xl transition-all duration-300 mb-6`}
                 style={{ animationDelay: '400ms' }}
               >
                 <span className="symbol text-lg">download</span>
@@ -1243,7 +1272,7 @@ const App = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-[100] p-4 bg-white shadow-xl rounded-full border border-gray-100 text-[#5F6368] hover:text-[#4285F4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#4285F4]"
+            className={`fixed bottom-8 right-8 z-[100] p-4 ${isDark ? 'bg-[#1e1e22] border-white/10 text-[#9aa0a6]' : 'bg-white border-gray-100 text-[#5F6368]'} shadow-xl rounded-full border hover:text-[#4285F4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#4285F4]`}
             aria-label="Scroll to top"
           >
             <span className="symbol text-xl">arrow_upward</span>
@@ -1252,46 +1281,46 @@ const App = () => {
       </AnimatePresence>
 
       {/* Section Progress Dots */}
-      <SectionProgressDots activeSection={activeSection} />
+      <SectionProgressDots activeSection={activeSection} isDark={isDark} />
 
       <main className="relative z-10">
-        <ParallaxHero lang={lang} />
+        <ParallaxHero lang={lang} isDark={isDark} />
 
         {/* PROJECTS - Responsive Split */}
         <section id="work">
-          <StickyScrollSection lang={lang} />
-          <MobileProjectList lang={lang} />
+          <StickyScrollSection lang={lang} isDark={isDark} />
+          <MobileProjectList lang={lang} isDark={isDark} />
         </section>
 
         {/* STATS COUNTER BAR */}
-        <StatsCounterBar lang={lang} />
+        <StatsCounterBar lang={lang} isDark={isDark} />
 
         {/* EXPERIENCE - Minimalist Timeline */}
-        <section id="about" className="py-[var(--space-7xl)] bg-white border-t border-gray-100">
+        <section id="about" className={`py-[var(--space-7xl)] ${isDark ? 'bg-[#0f0f10] border-white/5' : 'bg-white border-gray-100'} border-t`}>
           <div className="container mx-auto px-[var(--page-margin)] max-w-6xl">
             <div className="mb-16 section-reveal">
               <div className="flex items-center gap-3 mb-3">
                 <span className="w-2 h-2 rounded-full bg-[#4285F4]" />
                 <span className="w-2 h-2 rounded-full bg-[#EA4335]" />
               </div>
-              <h2 className="heading-2 text-[#202124]">{t.exp.title}</h2>
+              <h2 className={`heading-2 ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'}`}>{t.exp.title}</h2>
             </div>
 
-            <div className="border-l border-gray-200 ml-4 md:ml-0 md:border-none space-y-12">
+            <div className={`border-l ${isDark ? 'border-white/10' : 'border-gray-200'} ml-4 md:ml-0 md:border-none space-y-12`}>
               {experience.map((job, i) => (
                 <div
                   key={i}
-                  className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 relative pl-8 md:pl-0 hover:bg-gray-50 rounded-2xl p-6 md:p-8 transition-all duration-300 md:-mx-8 group section-reveal border-l-4 md:border-l-0"
+                  className={`grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 relative pl-8 md:pl-0 ${isDark ? 'hover:bg-white/5' : 'hover:bg-gray-50'} rounded-2xl p-6 md:p-8 transition-all duration-300 md:-mx-8 group section-reveal border-l-4 md:border-l-0`}
                   style={{ borderLeftColor: ['#4285F4', '#EA4335', '#FBBC04', '#34A853'][i % 4] }}
                 >
                   {/* Timeline Dot (Mobile) */}
                   <div className="absolute left-[-5px] top-10 w-2.5 h-2.5 rounded-full bg-gray-300 md:hidden group-hover:bg-[#4285F4] transition-colors"></div>
 
                   <div className="col-span-12 md:col-span-3">
-                    <div className="text-sm font-mono text-[#5F6368] py-1 border-l-2 border-transparent md:group-hover:border-[#4285F4] md:pl-4 transition-all flex flex-col gap-2">
+                    <div className={`text-sm font-mono ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} py-1 border-l-2 border-transparent md:group-hover:border-[#4285F4] md:pl-4 transition-all flex flex-col gap-2`}>
                       <span>{job.time}</span>
                       {job.type && (
-                        <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-gray-400 px-2 py-0.5 bg-gray-100 rounded-full w-fit">
+                        <span className={`text-[11px] font-sans font-semibold uppercase tracking-wider ${isDark ? 'text-gray-500 bg-white/5' : 'text-gray-400 bg-gray-100'} px-2 py-0.5 rounded-full w-fit`}>
                           {job.type}
                         </span>
                       )}
@@ -1299,21 +1328,21 @@ const App = () => {
                   </div>
 
                   <div className="col-span-12 md:col-span-9">
-                    <h3 className="heading-4 mb-1 text-[#202124]">{job.role}</h3>
+                    <h3 className={`heading-4 mb-1 ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'}`}>{job.role}</h3>
                     <div className="heading-6 text-[#4285F4] mb-4">{job.org}</div>
-                    {job.desc && <p className="body text-[#5F6368] leading-relaxed">{job.desc}</p>}
+                    {job.desc && <p className={`body ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} leading-relaxed`}>{job.desc}</p>}
 
                     {/* Sub-roles (for grouped positions) */}
                     {job.subRoles && (
-                      <div className="mt-6 space-y-4 border-l-2 border-gray-100 pl-5">
+                      <div className={`mt-6 space-y-4 border-l-2 ${isDark ? 'border-white/10' : 'border-gray-100'} pl-5`}>
                         {job.subRoles.map((sub, j) => (
                           <div key={j} className="flex flex-col gap-0.5 group/sub">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <span className="text-sm font-semibold text-[#202124]">{sub.role}</span>
+                              <span className={`text-sm font-semibold ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'}`}>{sub.role}</span>
                               {sub.type && <span className="text-[11px] text-gray-400 font-mono">· {sub.type}</span>}
                             </div>
                             <span className="text-xs font-mono text-gray-400">{sub.time}</span>
-                            {sub.desc && <p className="text-sm text-[#5F6368] mt-0.5">{sub.desc}</p>}
+                            {sub.desc && <p className={`text-sm ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} mt-0.5`}>{sub.desc}</p>}
                           </div>
                         ))}
                       </div>
@@ -1326,21 +1355,21 @@ const App = () => {
         </section>
 
         {/* CERTIFICATIONS - List Layout (like experience) */}
-        <section id="certs" className="py-[var(--space-7xl)] bg-[#F8F9FA]">
+        <section id="certs" className={`py-[var(--space-7xl)] ${isDark ? 'bg-[#141416]' : 'bg-[#F8F9FA]'}`}>
           <div className="container mx-auto px-[var(--page-margin)] max-w-6xl">
             <div className="mb-16 section-reveal">
               <div className="flex items-center gap-3 mb-3">
                 <span className="w-2 h-2 rounded-full bg-[#FBBC04]" />
                 <span className="w-2 h-2 rounded-full bg-[#34A853]" />
               </div>
-              <h2 className="heading-2 text-[#202124]">{t.certs.title}</h2>
+              <h2 className={`heading-2 ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'}`}>{t.certs.title}</h2>
             </div>
 
-            <div className="border-l border-gray-200 ml-4 md:ml-0 md:border-none space-y-2">
+            <div className={`border-l ${isDark ? 'border-white/10' : 'border-gray-200'} ml-4 md:ml-0 md:border-none space-y-2`}>
               {certifications.map((cert, i) => (
                 <div
                   key={i}
-                  className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 relative pl-6 md:pl-0 hover:bg-white rounded-2xl px-6 md:px-8 py-4 md:py-5 transition-all duration-300 md:-mx-8 group section-reveal border-l-3 md:border-l-0"
+                  className={`grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 relative pl-6 md:pl-0 ${isDark ? 'hover:bg-white/5' : 'hover:bg-white'} rounded-2xl px-6 md:px-8 py-4 md:py-5 transition-all duration-300 md:-mx-8 group section-reveal border-l-3 md:border-l-0`}
                   style={{ borderLeftColor: cert.color }}
                 >
                   {/* Timeline Dot (Mobile) */}
@@ -1351,9 +1380,9 @@ const App = () => {
 
                   {/* Issuer + Year */}
                   <div className="col-span-12 md:col-span-3 flex flex-col justify-center">
-                    <div className="text-xs font-mono text-[#5F6368] py-1 border-l-2 border-transparent md:group-hover:border-[#4285F4] md:pl-4 transition-all">
-                      <p className="font-bold text-[#5F6368] opacity-70 text-xs uppercase tracking-widest mb-0.5">{cert.issuer}</p>
-                      <p className="font-mono text-xs text-gray-400">{cert.year}</p>
+                    <div className={`text-xs font-mono ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} py-1 border-l-2 border-transparent md:group-hover:border-[#4285F4] md:pl-4 transition-all`}>
+                      <p className={`font-bold ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} opacity-70 text-xs uppercase tracking-widest mb-0.5`}>{cert.issuer}</p>
+                      <p className={`font-mono text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{cert.year}</p>
                     </div>
                   </div>
 
@@ -1366,7 +1395,7 @@ const App = () => {
                       <span className="symbol text-base">verified</span>
                     </div>
                     <div>
-                      <h3 className="text-base font-semibold text-[#202124] leading-snug mb-1 group-hover:text-[#202124] transition-colors">{cert.name}</h3>
+                      <h3 className={`text-base font-semibold ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'} leading-snug mb-1 transition-colors`}>{cert.name}</h3>
                       <p className="text-sm text-gray-400">{cert.skills}</p>
                     </div>
                   </div>
@@ -1378,25 +1407,25 @@ const App = () => {
 
 
         {/* SKILLS SECTION */}
-        <SkillsSection lang={lang} />
+        <SkillsSection lang={lang} isDark={isDark} />
 
 
         {/* EDUCATION & LEADERSHIP */}
-        <LeadershipSection lang={lang} />
+        <LeadershipSection lang={lang} isDark={isDark} />
 
         {/* FOOTER */}
-        <footer className="py-[var(--space-7xl)] bg-white text-center relative overflow-hidden">
+        <footer className={`py-[var(--space-7xl)] ${isDark ? 'bg-[#0f0f10]' : 'bg-white'} text-center relative overflow-hidden`}>
           {/* Subtle gradient accent at top of footer */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#4285F4]/20 to-transparent" />
 
           <div className="section-reveal px-[var(--page-margin)]">
-            <h2 className="heading-2 mb-3 text-[#202124]">{t.footer.cta}</h2>
-            <div className="mx-auto mb-10 w-24 h-1 rounded-full bg-gradient-to-r from-[#4285F4] via-[#EA4335] to-[#34A853]" />
+            <h2 className={`font-[450] leading-[1.1] tracking-[-2px] text-[clamp(42px,5.5vw,110px)] mb-6 ${isDark ? 'text-[#e8eaed]' : 'text-[#202124]'}`}>{t.footer.cta}</h2>
+            <div className="mx-auto mb-12 w-32 h-1.5 rounded-full bg-gradient-to-r from-[#4285F4] via-[#EA4335] to-[#34A853]" />
 
             {/* CTA button with gradient border */}
             <a
               href="mailto:gegecentianaputra@students.undip.ac.id"
-              className="group relative inline-flex items-center gap-3 px-8 md:px-12 py-4 md:py-5 bg-[#202124] text-white text-lg md:text-xl rounded-full font-bold hover:shadow-[0_8px_30px_rgba(66,133,244,0.3)] transition-all duration-500 hover:scale-105 active:scale-95"
+              className={`group relative inline-flex items-center gap-4 px-10 md:px-16 py-5 md:py-7 ${isDark ? 'bg-white text-[#202124]' : 'bg-[#202124] text-white'} text-xl md:text-3xl rounded-full font-bold hover:shadow-[0_8px_40px_rgba(66,133,244,0.35)] transition-all duration-500 hover:scale-105 active:scale-95`}
             >
               <span className="relative z-10">{t.footer.btn}</span>
               <span className="symbol text-xl relative z-10 group-hover:translate-x-2 transition-transform duration-300">arrow_forward</span>
@@ -1404,7 +1433,7 @@ const App = () => {
               <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#4285F4] via-[#EA4335] to-[#34A853] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </a>
 
-            <div className="mt-12 md:mt-16 text-[#5F6368] text-sm flex justify-center gap-6 md:gap-8 flex-wrap">
+            <div className={`mt-12 md:mt-16 ${isDark ? 'text-[#9aa0a6]' : 'text-[#5F6368]'} text-sm flex justify-center gap-6 md:gap-8 flex-wrap`}>
               {[
                 { label: 'LinkedIn', href: 'https://linkedin.com/in/gegecputra', color: '#4285F4' },
                 { label: 'GitHub', href: 'https://github.com/grecoel', color: '#202124' },

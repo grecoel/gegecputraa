@@ -80,7 +80,8 @@ const ParticleSphere = () => {
             const height = canvas.height;
 
             // Semi-transparent clear → warp streak trails
-            ctx.fillStyle = 'rgba(255,255,255,0.82)';
+            const isDarkMode = document.documentElement.classList.contains('dark');
+            ctx.fillStyle = isDarkMode ? 'rgba(15,15,16,0.82)' : 'rgba(255,255,255,0.82)';
             ctx.fillRect(0, 0, width, height);
 
             // Fade out as user scrolls past the hero
