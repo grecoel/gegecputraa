@@ -1,14 +1,14 @@
 import React, { useRef, useEffect } from 'react';
 
 // --- Module-level constants (stable across re-renders) ---
-// Google color palette — weighted toward blue
+// New Apple-style & Accent Color palette
 const PALETTE = [
-    [66, 133, 244],  // Blue
-    [66, 133, 244],  // Blue (extra weight)
-    [234, 67, 53],   // Red
-    [251, 188, 4],   // Yellow
-    [52, 168, 83],   // Green
-    [95, 99, 104],   // Gray accent
+    [255, 255, 255],  // White
+    [200, 200, 210],  // Silver
+    [255, 107, 0],    // #FF6B00 Orange
+    [249, 115, 22],   // #F97316 Coral
+    [27, 58, 107],    // #1B3A6B Navy
+    [91, 33, 182],    // #5B21B6 Violet
 ];
 
 const PARTICLE_COUNT = typeof window !== 'undefined' && window.innerWidth < 768 ? 200 : 550;
