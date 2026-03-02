@@ -7,13 +7,13 @@ export default {
     theme: {
         extend: {
             colors: {
-                google: {
-                    'base': '#202124',
-                    'surface': '#303134',
-                    'blue': '#8AB4F8',
-                    'purple': '#C58AF9',
-                    'text': '#E8EAED',
-                    'text-secondary': '#9AA0A6',
+                apple: {
+                    'bg': '#FAFAFA',
+                    'surface': '#1C1C1E',
+                    'orange': '#FF6B00',
+                    'amber': '#FF9500',
+                    'text': '#1D1D1F',
+                    'text-secondary': '#86868B',
                 },
             },
             fontFamily: {
@@ -35,8 +35,8 @@ export default {
                 },
             },
             backgroundImage: {
-                'gemini-gradient': 'linear-gradient(135deg, #4285F4 0%, #9B72CB 50%, #D96570 100%)',
-                'gemini-shine': 'linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)',
+                'accent-gradient': 'linear-gradient(135deg, #FF6B00 0%, #FF9500 50%, #FFB340 100%)',
+                'accent-shine': 'linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%)',
             },
         },
     },
